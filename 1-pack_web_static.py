@@ -7,7 +7,7 @@ from fabric.api import local
 
 
 def do_pack():
-    """generates a tgz archive"""
+    """makes a tgz archive"""
     try:
         date = datetime.now().strftime("%Y%m%d%H%M%S")
         if isdir("versions") is False:
