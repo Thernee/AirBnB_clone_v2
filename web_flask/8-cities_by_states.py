@@ -16,11 +16,12 @@ app = Flask(__name__)
 @app.route('/cities_by_states', strict_slashes=False)
 def list_cities_by_states():
     """Display a list of states and their cities, sorted by name."""
-    states = sorted(storage.all(State), key=lambda state: state.name)
+    states = storage.all(State).values()
     for state in states:
         state.cities = sorted(state.cities, key=lambda city: city.name)
+    states = sorted(states, key=lambda state: state.name)
     return render_template('8-cities_by_states.html', states=states)
-    
+
 
 @app.teardown_appcontext
 def teardown():
