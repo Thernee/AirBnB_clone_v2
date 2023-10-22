@@ -4,7 +4,7 @@
 """Initiates a Flask web app
    Listens to 0.0.0.0 on port 5000
 """
-from flask import Flask
+from flask import Flask, render_template
 from markupsafe import escape
 
 app = Flask(__name__)
