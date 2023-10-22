@@ -7,6 +7,7 @@
 from flask import Flask, render_template
 from markupsafe import escape
 from models import storage
+from models.state import State
 
 app = Flask(__name__)
 
@@ -14,7 +15,7 @@ app = Flask(__name__)
 @app.route("/states_list", strict_slashes=False)
 def list_states():
     """list of all State objects present in DBStorage"""
-    states = sorted(storage.all("State"), key=lambda state: state.name)
+    states = sorted(storage.all(State), key=lambda state: state.name)
     return render_template("7-states_list.html", states=states)
 
 

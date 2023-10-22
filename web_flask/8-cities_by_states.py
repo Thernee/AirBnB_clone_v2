@@ -7,16 +7,20 @@
 from flask import Flask, render_template
 from markupsafe import escape
 from models import storage
+from models.state import State
+from models.city import City
 
 app = Flask(__name__)
 
 
-@app.route("/cities_by_states", strict_slashes=False)
+@app.route('/cities_by_states', strict_slashes=False)
 def list_cities_by_states():
-    """list of all Cities by States as present in DBStorage"""
-    states = storage.all(State)
-    return render_template("8-cities_by_states.html", states=states)
-
+    """Display a list of states and their cities, sorted by name."""
+    states = sorted(storage.all(State), key=lambda state: state.name)
+    for state in states:
+        state.cities = sorted(state.cities, key=lambda city: city.name)
+    return render_template('8-cities_by_states.html', states=states)
+    
 
 @app.teardown_appcontext
 def teardown():
